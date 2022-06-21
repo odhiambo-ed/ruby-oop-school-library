@@ -1,16 +1,16 @@
-require './classroom'
-require './rental'
 require './student'
 require './teacher'
+require './classroom'
+require './rental'
 require './book'
 
 class App
-  attr_reader :books, :rental, :people
+  attr_reader :books, :people, :rentals
 
   def initialize
     @books = []
     @people = []
-    @rental = []
+    @rentals = []
   end
 
   def all_book
@@ -25,11 +25,11 @@ class App
     end
   end
 
-  def all_rental(id)
+  def all_rentals(id)
     @people.each do |person|
       next unless person.id == id
 
-      person.rental.each do |rental|
+      person.rentals.each do |rental|
         puts "[#{rental.class}] - Book: #{rental.book.title}, Person: #{rental.person.name}, Date: #{rental.date}"
       end
     end
@@ -48,7 +48,7 @@ class App
   end
 
   def create_rental(book:, person:, date:)
-    @rental << Rental.new(book: book, person: person, date: date)
+    @rentals << Rental.new(book: book, person: person, date: date)
   end
 end
 
